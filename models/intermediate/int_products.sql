@@ -1,6 +1,6 @@
 {{config(materialized='table')}}
 select
-    stockcode as product_code,
+    stock_code as product_code,
     COALESCE(description, 'UNKNOWN') AS product_name,
     count(distinct invoice_no) as product_sales,
     sum(quantity) as quantity_sold,
