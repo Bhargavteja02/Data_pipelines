@@ -2,13 +2,16 @@ name: dbt CI Pipeline
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
   dbt-run:
     runs-on: ubuntu-latest
 
     env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}
+
       DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.DBT_SNOWFLAKE_ACCOUNT }}
       DBT_SNOWFLAKE_USER: ${{ secrets.DBT_SNOWFLAKE_USER }}
       DBT_SNOWFLAKE_PASSWORD: ${{ secrets.DBT_SNOWFLAKE_PASSWORD }}
@@ -18,7 +21,7 @@ jobs:
       DBT_SNOWFLAKE_SCHEMA: ${{ secrets.DBT_SNOWFLAKE_SCHEMA }}
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -26,11 +29,20 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dbt Snowflake
-        run: pip install dbt-snowflake
+      - name: Install dbt
+        run: |
+          pip install dbt-snowflake
 
-      - name: Set dbt profiles directory
-        run: echo "DBT_PROFILES_DIR=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+      - name: Verify environment variables
+        run: |
+          echo "ACCOUNT=$DBT_SNOWFLAKE_ACCOUNT"
+          echo "USER=$DBT_SNOWFLAKE_USER"
+          echo "DATABASE=$DBT_SNOWFLAKE_DATABASE"
+
+      - name: Verify files
+        run: |
+          pwd
+          ls -la
 
       - name: dbt debug
         run: dbt debug
