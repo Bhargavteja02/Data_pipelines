@@ -1,4 +1,10 @@
+# VS Code
+.vscode/
 
+# dbt artifacts
 target/
 dbt_packages/
 logs/
+
+# system
+.DS_Store
