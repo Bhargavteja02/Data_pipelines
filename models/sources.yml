@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: stg_retails
+    description: "Staging model for Online Retail data"
+
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+
+      - name: invoice_no
+        tests:
+          - not_null
+
+      - name: stock_code
+        tests:
+          - not_null
