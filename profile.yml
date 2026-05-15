@@ -1,0 +1,13 @@
+flow_practice:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: QMQFKAQ-MO30403
+      user: bhargav
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      role: ACCOUNTADMIN
+      database: SF_DBT_DEMO
+      warehouse: COMPUTE_WH
+      schema: SCHEMA_DEMO
+      threads: 4
