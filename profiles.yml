@@ -1,5 +1,6 @@
 flow_practice:
   target: dev
+
   outputs:
     dev:
       type: snowflake
