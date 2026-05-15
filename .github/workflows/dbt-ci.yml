@@ -20,13 +20,17 @@ jobs:
           python-version: "3.11"
 
       - name: Install dbt Snowflake
-        run: |
-          pip install dbt-snowflake
+        run: pip install dbt-snowflake
 
-      # IMPORTANT: point dbt to correct folder where profiles.yml exists
       - name: Set dbt profiles directory
         run: |
-          echo "DBT_PROFILES_DIR=$GITHUB_WORKSPACE/flow_practice" >> $GITHUB_ENV
+          echo "DBT_PROFILES_DIR=$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
+      - name: Verify files
+        run: |
+          pwd
+          ls -la
+          find . -name "profiles.yml"
 
       - name: dbt deps
         env:
